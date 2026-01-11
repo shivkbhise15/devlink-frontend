@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
+import { Link } from "react-router-dom";
 
 function Register() {
   const navigate = useNavigate();
@@ -17,9 +18,17 @@ function Register() {
     setSuccess("");
 
     try {
-      await api.post("/auth/register", { username, email, password });
+      const res = await api.post("/auth/register", {
+        username,
+        email,
+        password,
+      });
+
+      // backend should return token after register
+      localStorage.setItem("token", res.data.token);
       setSuccess("Registration successful! Redirecting...");
-      setTimeout(() => navigate("/"), 1500);
+      setTimeout(() => navigate("/"), 1000);
+
     } catch (err) {
       setError(err.response?.data?.error || "Registration failed");
     }
@@ -27,7 +36,7 @@ function Register() {
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <form 
+      <form
         onSubmit={handleSubmit}
         className="bg-gray-800 p-8 rounded-xl w-full max-w-sm shadow-lg"
       >
@@ -59,7 +68,7 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button 
+        <button
           type="submit"
           className="w-full bg-green-600 hover:bg-green-700 text-white p-3 rounded"
         >
@@ -67,7 +76,10 @@ function Register() {
         </button>
 
         <p className="mt-4 text-gray-400 text-sm text-center">
-          Already have an account? <a className="text-blue-400" href="/">Login</a>
+          Already have an account? <Link to="/login" className="text-blue-400">
+            Login
+          </Link>
+
         </p>
       </form>
     </div>
