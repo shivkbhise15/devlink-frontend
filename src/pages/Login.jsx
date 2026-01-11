@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import api from '../api/axios'
 import { useNavigate } from 'react-router-dom'
+import { Link } from "react-router-dom";
+
 
 function Login() {
     const { login } = useAuth();
@@ -56,7 +58,10 @@ function Login() {
         </button>
 
         <p className="mt-4 text-black-400 text-sm text-center">
-          Don't have an account? <a className="text-blue-700" href="/register">Register</a>
+          Don't have an account? <Link to="/register" className="text-blue-700">
+  Register
+</Link>
+
         </p>
       </form>
     </div>

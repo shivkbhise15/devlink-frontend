@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/protectedRoutes";
 import { AuthProvider } from "./context/AuthContext";
 import AppLayout from "./components/layout/AppLayout";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
